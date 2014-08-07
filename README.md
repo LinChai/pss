@@ -48,6 +48,7 @@ Configurations:
 
 Dataset:
 --------
+This directory contains 6 different benchmarks each with 500 vectors to generalize the performance techniques. 
 
 
 Solutions to common errors:
