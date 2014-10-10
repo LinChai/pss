@@ -42,7 +42,7 @@
 	
   <property>
     <name>max.doc.norm</name>
-  <value>4</value>
+  <value>10</value>
     <description>max expected document 1-norm to use for distributing the records among the sorting reducers.</description>
   </property>
 	

@@ -9,13 +9,13 @@
   
   <property>
     <name>hybrid.sim.threshold</name>
-    <value>0.01</value>
+    <value>0.99</value>
     <description>this should be same as partitioning threshold</description>
   </property>
 
   <property>
     <name>hybrid.block.number</name>
-    <value>1</value>
+    <value>2</value>
     <description>either '1' for PSS1 or '2' PSS2. Note: PSS is PSS1 with hybrid.number.splits=1 </description>
   </property>
   
