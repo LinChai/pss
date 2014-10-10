@@ -20,7 +20,7 @@ data/: contains six different benchmarks each with 500 sample records.
 Quick start:
 ------------
 
-1) Clone the repository as: git clone git@github.com:mahaucsb/pss.git
+1) Clone the repository as: git clone git@github.com:ucsb-similarity/pss.git
 
 2) Install Java. Make sure 'ant','java','javac' are installed by typing them into the command line.
 
