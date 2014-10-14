@@ -1,6 +1,12 @@
 Partition-based Similarity Search (PSS)
 =======================================
-  A Partition-based Similarity Search as described in [1][2]. The package takes an input of the format <DocID: word1 word2..> as bag of words and output the pairs of document IDs that have a similarity value >= threshold. The framework used is the Java-based MapReduce framework provided by Apache Hadoop. 
+Release note: [Oct. 14, 2014]
+-----------------
+
+Project overview:
+-----------------
+
+A Partition-based Similarity Search as described in [1][2]. The package takes an input of the format <DocID: word1 word2..> as bag of words and output the pairs of document IDs that have a similarity value >= threshold. The framework used is the Java-based MapReduce framework provided by Apache Hadoop. 
 
 Package overview:
 -----------------
