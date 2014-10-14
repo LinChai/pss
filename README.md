@@ -15,7 +15,7 @@ conf/lib: external jar files, mostly Hadoop jars.
 
 target/: compiled jar files.
 
-data/: contains six different benchmarks each with 500 sample records. 
+data/: contains 500 sample records for each benchmark tested in our experiments. 
 
 Quick start:
 ------------
