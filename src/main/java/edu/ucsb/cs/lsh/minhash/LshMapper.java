@@ -14,8 +14,6 @@
  * specific language governing permissions and limitations under
  * the License.
  * 
- * Author: maha alabduljalil <maha (at) cs.ucsb.edu>
- * @Since Sep 5, 2012
  */
 
 package edu.ucsb.cs.lsh.minhash;
@@ -41,11 +39,9 @@ import edu.ucsb.cs.lsh.types.CounterWritable;
 import edu.ucsb.cs.lsh.types.IntArrayWritable;
 
 /**
- * This class reads in documents of the format [docid word1 word2 ...] and
+ * This class reads in documents of the format [docid: word1 word2 ...] and
  * produce an lsh minhash signature to each of them "l" times using a list of
  * minHashTables.
- * 
- * @author Maha
  */
 public class LshMapper extends MapReduceBase implements
 		Mapper<LongWritable, Text, IntArrayWritable, LongWritable> {
@@ -77,7 +73,8 @@ public class LshMapper extends MapReduceBase implements
 			OutputCollector<IntArrayWritable, LongWritable> output, Reporter report)
 			throws IOException {
 		StringTokenizer tkz = new StringTokenizer(idwordsBag.toString(), " ");
-		docCount.docid = Long.parseLong(tkz.nextToken()); // document id
+		String idString = tkz.nextToken();
+		docCount.docid = Long.parseLong(idString.substring(0, idString.length()-1)); // document id
 		while (tkz.hasMoreTokens()) {
 			String word = tkz.nextToken();
 			lng.set(Long.parseLong(word));

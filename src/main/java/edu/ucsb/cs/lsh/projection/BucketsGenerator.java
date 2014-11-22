@@ -26,6 +26,7 @@ import org.apache.hadoop.mapred.Reducer;
 import org.apache.hadoop.mapred.Reporter;
 import org.apache.hadoop.mapred.SequenceFileInputFormat;
 import org.apache.hadoop.mapred.SequenceFileOutputFormat;
+import org.apache.hadoop.mapred.lib.MultipleSequenceFileOutputFormat;
 
 import edu.ucsb.cs.hybrid.Config;
 import edu.ucsb.cs.lsh.types.BitSignature;
@@ -46,7 +47,15 @@ public class BucketsGenerator {
 
 	protected static String INPUT_DIR = SignaturesGenerator.OUTPUT_DIR;
 	protected static String OUTPUT_DIR = "lshpartitions";
-
+	
+	static class MultiFileOutput extends 
+							MultipleSequenceFileOutputFormat<LongWritable, FeatureWeightArrayWritable> {
+		protected String generateFileNameForKeyValue(LongWritable key, FeatureWeightArrayWritable value, String name) {
+	    //return Long.toString(key.get());
+	    return Integer.valueOf(name.split("-")[1]).toString();
+	  }
+	}
+	
 	public static void main(JobConf job) throws Exception {
 
 		job.setJobName(BucketsGenerator.class.getSimpleName());
@@ -61,16 +70,25 @@ public class BucketsGenerator {
 		FileInputFormat.setInputPaths(job, inputPath);
 		// Path[] paths = FileInputFormat.getInputPaths(job); //do I need this?
 		FileOutputFormat.setOutputPath(job, outputPath);
-		job.setOutputFormat(SequenceFileOutputFormat.class);
+		//job.setOutputFormat(SequenceFileOutputFormat.class);
+		job.setOutputFormat(MultiFileOutput.class);
 
+		/*
 		job.set("mapred.child.java.opts", "-Xmx2048m");
 		job.setInt("mapred.task.timeout", 600000000);
 		// int numMappers = job.getInt("dummy", 2);
-		int numReducers = job.getInt(ProjectionLshDriver.LSH_NPERMUTATION_PROPERTY,
-				ProjectionLshDriver.LSH_NPERMUTATION_VALUE);
+		*/
 
 		job.setMapperClass(BucketMapper.class);
 		job.setPartitionerClass(BucketPartitioner.class);
+		
+
+		int nBits = job.getInt(ProjectionLshDriver.LSH_NBITS_PROPERTY,
+				ProjectionLshDriver.LSH_NBITS_VALUE);
+		int numOfPermutations = job.getInt(ProjectionLshDriver.LSH_NPERMUTATION_PROPERTY,
+				ProjectionLshDriver.LSH_NPERMUTATION_VALUE);
+		int numReducers = (int) Math.pow(2, nBits) * numOfPermutations; 
+		
 		// job.setNumMapTasks(numMappers);
 		job.setNumReduceTasks(numReducers);
 		job.setMapOutputKeyClass(PairOfIntSignature.class);
@@ -80,10 +98,7 @@ public class BucketsGenerator {
 		job.setOutputValueClass(FeatureWeightArrayWritable.class);
 
 		// create Q permutation functions and write them to file
-		int nBits = job.getInt(ProjectionLshDriver.LSH_NBITS_PROPERTY,
-				ProjectionLshDriver.LSH_NBITS_VALUE);
-		int numOfPermutations = job.getInt(ProjectionLshDriver.LSH_NPERMUTATION_PROPERTY,
-				ProjectionLshDriver.LSH_NPERMUTATION_VALUE);
+
 		String randomPermFile = "/randomPermutations";
 		createPermutations(fs, job, randomPermFile, nBits, numOfPermutations);
 		DistributedCache.addCacheFile(new URI(randomPermFile), job);
@@ -172,15 +187,22 @@ public class BucketsGenerator {
 			}
 		}
 	}
-
+	
+	/** Partition by permutation id and signature
+	*/
 	public static class BucketPartitioner implements Partitioner<PairOfIntSignature, BitSignature> {
 		public void configure(JobConf conf) {}
 
 		public int getPartition(PairOfIntSignature key, BitSignature value, int numReducers) {
-			return key.getInt() % numReducers;
+			// [0, perm-1] * 2^nBits + [0, 2^nBits]
+			int part = (key.getInt() * (int) Math.pow(2, key.getSignature().size())
+					+ Integer.valueOf(key.getSignature().toString().split(" ")[0])) % numReducers;
+			System.out.println(key.getInt() + "\t" + key.getSignature().toString().split(" ")[0] + "\t" + part + "\t" + numReducers);
+			return part;
+			// unsafe casting
 		}
 	}
-
+	
 	// all signatures:
 	// (1) belong to the same permutation table, and
 	// (2) sorted
@@ -189,7 +211,7 @@ public class BucketsGenerator {
 
 	public static class BucketReducer extends MapReduceBase implements
 			Reducer<PairOfIntSignature, BitSignature, LongWritable, FeatureWeightArrayWritable> {
-		String lastSig = null;
+
 		LongWritable keyId = new LongWritable();
 		FeatureWeightArrayWritable emptyVal = new FeatureWeightArrayWritable(0);
 
@@ -214,26 +236,32 @@ public class BucketsGenerator {
 		public void reduce(PairOfIntSignature key, Iterator<BitSignature> val,
 				OutputCollector<LongWritable, FeatureWeightArrayWritable> output, Reporter reporter)
 				throws IOException {
+			String lastSig = null;
 			while (val.hasNext()) {
 				BitSignature nexVal = val.next();
 
 				// if (CountOverlap(leadSig, nexVal) < overlapCount) {
 				// if ((lastSig != null) && (CountOverlap(leadSig, nexVal) <
 				// overlapCount)) {
+				/*
 				if ((lastSig != null) && (nexVal.toString().split(" ")[0].equals(lastSig))) {
 					keyId.set(nexVal.docno);
 					output.collect(keyId, nexVal.vector);
 				} else {
-					keyId.set(0);
+					keyId.set(Long.valueOf(nexVal.toString().split(" ")[0]));
 					output.collect(keyId, emptyVal);
 					keyId.set(nexVal.docno);
 					output.collect(keyId, nexVal.vector);
 				}
 				lastSig = nexVal.toString().split(" ")[0];
+				*/
+				keyId.set(nexVal.docno);
+				output.collect(keyId, nexVal.vector);
 			}
 		}
 	}
 
+	/*
 	public static int CountOverlap(String s1, BitSignature sig2) {
 		String s2 = sig2.toString().split(" ")[0];
 		int overlapCount = 0;
@@ -242,6 +270,7 @@ public class BucketsGenerator {
 				overlapCount++;
 		return overlapCount;
 	}
+	*/
 	// public static void addDistribuedCache(JobConf job, String srcPath) {
 	// try {
 	// DistributedCache.addFileToClassPath(new Path("seqvectors1/part-00002"),

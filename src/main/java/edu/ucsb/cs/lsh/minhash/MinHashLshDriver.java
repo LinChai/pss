@@ -13,9 +13,6 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under
  * the License.
- * 
- * Author: maha alabduljalil <maha (at) cs.ucsb.edu>
- * @Since Sep 3, 2012
  */
 
 package edu.ucsb.cs.lsh.minhash;
@@ -49,8 +46,6 @@ import edu.ucsb.cs.utilities.JobSubmitter;
  * mapReduce job with {@link LshMapper} as a class to generate the documents'
  * signatures and {@link LshReducer} to write documents sharing signatures into
  * the same file for all-to-all comparison later.
- * 
- * @author Maha Alabduljalil
  * 
  */
 public class MinHashLshDriver {
@@ -99,11 +94,7 @@ public class MinHashLshDriver {
 		job.setOutputKeyClass(IntWritable.class);
 		job.setOutputValueClass(Text.class);
 
-		String inputDir = args[0];
-		if (inputDir == null) {
-			throw new UnsupportedOperationException("ERROR: input directory not set.");
-		}
-		FileInputFormat.addInputPath(job, new Path(inputDir));
+		FileInputFormat.addInputPath(job, new Path("textpages"));
 		Path outputPath = new Path("lsh-jaccard-buckets");
 		FileOutputFormat.setOutputPath(job, outputPath);
 		FileSystem.get(job).delete(outputPath, true);

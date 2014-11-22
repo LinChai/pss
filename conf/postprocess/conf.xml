@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+<property> 
+    <name>postprocess.input.dir</name>
+    <value>exactss</value> 
+    <description>Input dir</description>
+  </property>
+  
+
+</configuration>

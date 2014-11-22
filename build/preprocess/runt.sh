@@ -21,7 +21,7 @@ fi
 ############################################################
 
 numdocs=$1
-twitterdata=../../data/twitter/500-twitter
+twitterdata=../../data/twitter/500-twitter	#500-twitter
 jarfile=../../target/preprocessing.jar
 xmlconf=../../conf/preprocess/conf.xml
 tmpdata=input_dir

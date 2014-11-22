@@ -14,8 +14,6 @@
  * specific language governing permissions and limitations under
  * the License.
  * 
- * Author: maha alabduljalil <maha (at) cs.ucsb.edu>
- * @Since Sep 4, 2012
  */
 
 package edu.ucsb.cs.lsh;
@@ -34,7 +32,6 @@ import java.io.InputStreamReader;
  * This is a read/write directory to another directory after removing the
  * weights from lines. Not needed if lines are already bag of words.
  * 
- * @author Maha
  */
 public class Processor {
 

@@ -14,8 +14,6 @@
  * specific language governing permissions and limitations under
  * the License.
  * 
- * Author: maha alabduljalil <maha (at) cs.ucsb.edu>
- * @Since Jan 1, 2013
  */
 
 package edu.ucsb.cs.lsh;
@@ -29,8 +27,6 @@ import edu.ucsb.cs.lsh.statistics.LshStat;
 import edu.ucsb.cs.utilities.JobSubmitter;
 
 /**
- * @author Maha
- * 
  */
 public class LshDriver {
 

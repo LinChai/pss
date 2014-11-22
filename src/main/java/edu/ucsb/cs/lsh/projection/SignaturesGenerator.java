@@ -14,14 +14,11 @@
  * specific language governing permissions and limitations under
  * the License.
  * 
- * Author: maha alabduljalil <maha (at) cs.ucsb.edu>
- * @Since Jan 1, 2013
  */
 
 package edu.ucsb.cs.lsh.projection;
 
 /**
- * @author Maha
  * A Hadoop task to compute signatures for document vectors slightly modified from Ivory package.
  * Output is <docId,signature>, see ComputeSignaturesRandom.
  */
@@ -59,7 +56,6 @@ import edu.umd.cloud9.io.SequenceFileUtils;
  * which is the number of projections. Then write those which share at least
  * sigThreshold distance into the same file using reducers.See
  * ComputeSignaturesRandom.
- * @author Maha
  * 
  */
 public class SignaturesGenerator {
@@ -87,10 +83,12 @@ public class SignaturesGenerator {
 		job.setInputFormat(SequenceFileInputFormat.class);
 		job.setOutputFormat(SequenceFileOutputFormat.class);
 
+		/*
 		job.set("mapred.child.java.opts", "-Xmx2048m");
 		job.setInt("mapred.map.max.attempts", 10);
 		job.setInt("mapred.reduce.max.attempts", 10);
 		job.setInt("mapred.task.timeout", 6000000);
+		*/
 
 		job.setMapperClass(SigMapper.class);
 		job.setMapOutputKeyClass(LongWritable.class);

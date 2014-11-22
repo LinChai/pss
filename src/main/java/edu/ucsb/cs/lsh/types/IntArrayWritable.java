@@ -14,8 +14,6 @@
  * specific language governing permissions and limitations under
  * the License.
  * 
- * Author: maha alabduljalil <maha (at) cs.ucsb.edu>
- * @Since Sep 8, 2012
  */
 
 package edu.ucsb.cs.lsh.types;
@@ -27,7 +25,7 @@ import java.io.IOException;
 import org.apache.hadoop.io.WritableComparable;
 
 /**
- * @author Maha
+ *
  */
 
 public class IntArrayWritable implements WritableComparable<IntArrayWritable> {

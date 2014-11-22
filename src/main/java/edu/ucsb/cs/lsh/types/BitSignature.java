@@ -14,8 +14,6 @@
  * specific language governing permissions and limitations under
  * the License.
  * 
- * Author: maha alabduljalil <maha (at) cs.ucsb.edu>
- * @Since Jan 2, 2013
  */
 
 package edu.ucsb.cs.lsh.types;
@@ -32,7 +30,6 @@ import org.apache.hadoop.io.WritableComparable;
 import edu.ucsb.cs.types.FeatureWeightArrayWritable;
 
 /**
- * @author Maha
  * 
  */
 public class BitSignature extends NBitSignature implements WritableComparable { // NBitSignature

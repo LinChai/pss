@@ -1,27 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+	<!-- not used
 	<property>
-		<name>lsh.num.bits</name>
-  <value>9</value>
-		<description> number random projections each of size # features</description>
+		<name>lsh.sim.threshold</name>
+  <value>0.4</value>
+		<description> similarity threshold </description>
 	</property>
+	-->
+
+	<!-- minhash properties -->
+	<property> 
+		<name>lsh.num.reducers</name>
+		<value>2</value> 
+		<description>Number of reducers used </description>
+	</property>
+
+		<property>
+		<name>lsh.l</name>
+  <value>32</value>
+		<description> number of LSH signatures generated for each object</description>
+	</property>
+
+		<property>
+		<name>lsh.k</name>
+  <value>1</value>
+		<description> number of minhash values used in each LSH signature </description>
+	</property>
+
+
+	<!-- projectionhash properties -->
+
 	<property>
 		<name>lsh.num.features</name>
-		<value>439021</value>
-		<description>this should total number of features to know size of each random projection</description>
+		<value>1652</value>
+		<description>this should total number of features to know size of each random projection. 
+			1652 features for 500 twitter docs.</description>
 	</property>
+
+	<property>
+		<name>lsh.num.bits</name>
+  <value>2</value>
+		<description> number random projections each of size # features</description>
+	</property>
+
 	<property>
 		<name>lsh.num.permutations</name>
-  <value>20</value>
+  <value>1</value>
 		<description>Number of random permutations to be produced for each document signature</description>
 	</property>
-	<property> 
-		<name>sort.num.reducers</name>
-		<value>2</value> 
-	</property>
+
 <!-- <property>
 		<name>lsh.overlap.percentage</name>
 		<value>0.8</value>
 		<description> ratio of overlap between vector signatures within the same table .. 1 = 100 %</description> 
 	</property>  --> 
+
+	
+
 </configuration>

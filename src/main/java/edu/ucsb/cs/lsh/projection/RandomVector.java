@@ -13,9 +13,6 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under
  * the License.
- * 
- * Author: maha alabduljalil <maha (at) cs.ucsb.edu>
- * @Since Dec 27, 2012
  */
 
 package edu.ucsb.cs.lsh.projection;
@@ -33,8 +30,6 @@ import org.apache.hadoop.io.Writable;
  * 
  * byte = quantize(float) = ((float/maxNorm)*128)==128 ? 127 : ((float/maxNorm)
  * float = dequantize(byte) = ((byte/128)*maxNorm)
- * 
- * @author Maha
  * 
  */
 public class RandomVector implements Writable {

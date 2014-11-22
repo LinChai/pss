@@ -115,10 +115,10 @@ MapRunner<LongWritable, FeatureWeightArrayWritable, DocDocWritable, FloatWritabl
 				continue;
 			}else {
 				if (reader.readMyPartition) {
-					origIdComp = idComparison;
-					idComparison = true;//mapper.idComparison = true;
+					//origIdComp = idComparison;
+					//idComparison = true;//mapper.idComparison = true;
 					comparePartition(reader, output, reporter);
-					idComparison = origIdComp;//mapper.idComparison = origIdComp;
+					//idComparison = origIdComp;//mapper.idComparison = origIdComp;
 				} else {
 					comparePartition(reader, output, reporter);
 				}
