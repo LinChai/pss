@@ -46,4 +46,9 @@ fi
 cd ../hybrid
 $run_hadoop jar $hybridjar -conf $xmlconf 
 
-
+############################################################
+# Run Post Processing for Score Band
+############################################################
+$run_hadoop dfs -mv SimilarityScores exactss
+cd ../postprocess
+./run.sh scoreband      #scoreband processes for result from exact similarity search

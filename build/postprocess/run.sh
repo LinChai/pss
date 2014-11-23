@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ $# -ne 1 ]
+then
+  echo "Usage: `basename $0` <scoreband or scorebanddedup>"
+  exit 1
+fi
 
 ############################################################                                                                                                       
 # Enironment Variables Set
@@ -22,10 +27,7 @@ run_hadoop=${HADOOP_HOME}/bin/hadoop
 # Run Postprocessing                                                                                                                                 
 ###########################################################                                                                                               
 echo "*****************************************************************************"
-echo "Run post processing for result of exact similarity search"
-$run_hadoop jar $jarfile scoreband -conf $xmlconf
-
-#echo "Run post processing for result of lsh similarity search stored in lshss"
-#$run_hadoop jar $jarfile scorebanddedup -conf $xmlconf
+echo "Run post processing for result of exact or lsh similarity search"
+$run_hadoop jar $jarfile $1 -conf $xmlconf
 
 
