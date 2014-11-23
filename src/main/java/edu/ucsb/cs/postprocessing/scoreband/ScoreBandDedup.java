@@ -52,6 +52,8 @@ import org.apache.hadoop.mapred.lib.MultipleSequenceFileOutputFormat;
 import edu.ucsb.cs.utilities.JobSubmitter;
 import edu.ucsb.cs.postprocessing.types.FloatPairWritable;
 
+import edu.ucsb.cs.postprocessing.PostProcessDriver;
+
 /**
 * Partition the result of PSS (i.e.id pairs with their similarity scores) 
 * into score bands. Similarity scores within a range will be put to the same band.
@@ -67,6 +69,9 @@ public class ScoreBandDedup {
     protected static int numReducers = 10;
 
     public static void main(JobConf job) throws Exception {
+
+        int numMappers = 
+            job.getInt(PostProcessDriver.POSTPROCESS_MAPPER_PROPERTY, 2);
 
         String INPUT_DIR = "lshss";
         String OUTPUT_DIR = INPUT_DIR + "sb";
@@ -92,7 +97,7 @@ public class ScoreBandDedup {
         FileOutputFormat.setOutputPath(job, outputPath);
         job.setOutputFormat(SequenceFileOutputFormat.class);
 
-
+        job.setNumMapTasks(numMappers);
         job.setMapperClass(BandDedupMapper.class);
         job.setMapOutputKeyClass(FloatPairWritable.class);
         job.setMapOutputValueClass(NullWritable.class);

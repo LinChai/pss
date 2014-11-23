@@ -30,6 +30,8 @@ import edu.ucsb.cs.postprocessing.scoreband.ScoreBandDedupDriver;
  */
 public class PostProcessDriver {
 
+  public static final String NAMESPACE = "postprocess";
+  public static final String POSTPROCESS_MAPPER_PROPERTY = NAMESPACE + ".num.mapper";
 
   public static void main(String argv[]) {
     int exitCode = -1;

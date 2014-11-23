@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 <property> 
-    <name>postprocess.input.dir</name>
-    <value>exactss</value> 
-    <description>Input dir</description>
+    <name>postprocess.num.mapper</name>
+    <value>8</value> 
+    <description>Number of mappers</description>
   </property>
   
 

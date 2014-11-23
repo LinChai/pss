@@ -49,6 +49,7 @@ import org.apache.hadoop.mapred.SequenceFileOutputFormat;
 import org.apache.hadoop.mapred.lib.MultipleSequenceFileOutputFormat;
 
 import edu.ucsb.cs.utilities.JobSubmitter;
+import edu.ucsb.cs.postprocessing.PostProcessDriver;
 
 /**
 * Partition the result of PSS (i.e.id pairs with their similarity scores) 
@@ -66,6 +67,8 @@ public class ScoreBand {
 
     public static void main(JobConf job) throws Exception {
 
+        int numMappers = 
+            job.getInt(PostProcessDriver.POSTPROCESS_MAPPER_PROPERTY, 2);
         String INPUT_DIR = "exactss";  
         String OUTPUT_DIR = INPUT_DIR + "sb";
 
@@ -82,7 +85,7 @@ public class ScoreBand {
         FileOutputFormat.setOutputPath(job, outputPath);
         job.setOutputFormat(SequenceFileOutputFormat.class);
 
-
+        job.setNumMapTasks(numMappers);
         job.setMapperClass(BandMapper.class);
         job.setMapOutputKeyClass(FloatWritable.class);
         job.setMapOutputValueClass(Text.class);
