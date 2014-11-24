@@ -61,6 +61,7 @@ for permno in {0..0}
 do
   echo "Run randomlsh, buckets are stored in lshpartitions"
   $run_hadoop jar $jarfile randomlsh -conf $xmlconf 
+  exit
 
   echo "Run cosine similarity search on each partition"
   for partno in {0..3}   

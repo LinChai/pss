@@ -197,7 +197,9 @@ public class BucketsGenerator {
 			// [0, perm-1] * 2^nBits + [0, 2^nBits]
 			int part = (key.getInt() * (int) Math.pow(2, key.getSignature().size())
 					+ Integer.valueOf(key.getSignature().toString().split(" ")[0])) % numReducers;
-			System.out.println(key.getInt() + "\t" + key.getSignature().toString().split(" ")[0] + "\t" + part + "\t" + numReducers);
+			
+			// for debug purpose
+			//System.out.println(key.getInt() + "\t" + key.getSignature().toString().split(" ")[0] + "\t" + part + "\t" + numReducers);
 			return part;
 			// unsafe casting
 		}
@@ -233,6 +235,7 @@ public class BucketsGenerator {
 		 * @param value: (doc,docno,signature) where signatures and permNo is
 		 *        the same per key.
 		 */
+		int count = 0;
 		public void reduce(PairOfIntSignature key, Iterator<BitSignature> val,
 				OutputCollector<LongWritable, FeatureWeightArrayWritable> output, Reporter reporter)
 				throws IOException {
@@ -257,8 +260,16 @@ public class BucketsGenerator {
 				*/
 				keyId.set(nexVal.docno);
 				output.collect(keyId, nexVal.vector);
+				count++;
 			}
 		}
+
+		@Override
+		public void close() throws IOException {
+			// output counter to stdout
+			System.out.println(count);
+		}
+
 	}
 
 	/*

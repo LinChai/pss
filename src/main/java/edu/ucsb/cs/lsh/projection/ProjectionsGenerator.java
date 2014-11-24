@@ -108,7 +108,9 @@ public class ProjectionsGenerator {
 		job.setOutputKeyClass(IntWritable.class);
 		job.setOutputValueClass(RandomVector.class);
 
-		JobSubmitter.run(job,"LSH",job.getFloat(Config.THRESHOLD_PROPERTY, Config.THRESHOLD_VALUE));
+		//JobSubmitter.run(job,"LSH",job.getFloat(Config.THRESHOLD_PROPERTY, Config.THRESHOLD_VALUE));
+		JobSubmitter.run(job,"LSH",-1);
+	
 	}
 
 	public static int readCollectionFeatureCount(FileSystem hdfs, JobConf job) throws IOException {
