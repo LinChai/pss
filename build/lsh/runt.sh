@@ -56,7 +56,7 @@ $run_hadoop dfs -put $tmpdata textpages
 $run_hadoop dfs -rmr lshss
 $run_hadoop dfs -mkdir lshss
 
-for permno in {2..3}  
+for permno in {0..0}  
 # hard coded, should be {0,nPerm-1}
 do
   echo "Run randomlsh, buckets are stored in lshpartitions"
@@ -71,9 +71,9 @@ do
     $run_hadoop dfs -cp lshpartitions/"$partno" staticpartitions
     $run_hadoop dfs -ls staticpartitions
 
-    cd ..   # to build folder
+    cd ../hybrid   # to hybrid folder
     sh run.sh $numdocs 2 N      # 2 stands for twitter data, hard coded
-    cd lsh  # back to lsh folder
+    cd ../lsh  # back to lsh folder
 
     $run_hadoop dfs -mv SimilarityScores lshss/"$permno"-"$partno"
   done  # loop of partno
