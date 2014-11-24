@@ -80,4 +80,5 @@ do
 done  # loop of permno
 
 cd ../postprocess  
-sh run.sh
+sh run.sh scorebanddedup
+
