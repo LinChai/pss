@@ -53,20 +53,23 @@ $run_hadoop dfs -put $tmpdata textpages
 #$run_hadoop jar $jarfile minhashlsh -conf $xmlconf
 
 # clean up lshss output dir
-$run_hadoop dfs -rmr lshss
+#$run_hadoop dfs -rmr lshss
 $run_hadoop dfs -mkdir lshss
 
-for permno in {0..0}  
+for permno in {0..7}  
 # hard coded, should be {0,nPerm-1}
 do
+  echo "+++++++++++++++++++++++++++ permno: $permno"
+
   echo "Run randomlsh, buckets are stored in lshpartitions"
   $run_hadoop jar $jarfile randomlsh -conf $xmlconf 
-  exit
 
   echo "Run cosine similarity search on each partition"
   for partno in {0..3}   
   # hard coded, should be {0,2^nBits-1}
   do
+    echo "+++++++++++++++++++++++++++ permno-partno: $permno-$partno"
+    
     $run_hadoop dfs -rmr staticpartitions
     $run_hadoop dfs -mkdir staticpartitions
     $run_hadoop dfs -cp lshpartitions/"$partno" staticpartitions
@@ -78,8 +81,12 @@ do
 
     $run_hadoop dfs -mv SimilarityScores lshss/"$permno"-"$partno"
   done  # loop of partno
+  
+  # post process the results
+  cd ../postprocess  
+  sh run.sh scorebanddedup
+  cd ../lsh
+
 done  # loop of permno
 
-cd ../postprocess  
-sh run.sh scorebanddedup
 
