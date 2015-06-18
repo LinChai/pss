@@ -68,3 +68,5 @@ References:
 [1]  "Optimizing Parallel Algorithms for All Pairs Similarity Search".M.Alabduljalil,X.Tang,T.Yang.WSDM'13.
 
 [2]  "Cache-Conscious Performance Optimization for Similarity Search".M.Alabduljalil,X.Tang,T.Yang.SIGIR'13.
+
+[3]  "Load Balancing for Partition-based Similarity Search". X.Tang,M.Alabduljalil,T.Yang.SIGIR'14.
