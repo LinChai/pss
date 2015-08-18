@@ -1,12 +1,15 @@
 Partition-based Similarity Search (PSS)
 =======================================
-Release note: [Oct. 14, 2014]
+Release note: [June 10, 2015]
 -----------------
 
 Project overview:
 -----------------
 
-A Partition-based Similarity Search as described in [1][2]. The package takes an input of the format <DocID: word1 word2..> as bag of words and output the pairs of document IDs that have a similarity value >= threshold. The framework used is the Java-based MapReduce framework provided by Apache Hadoop. 
+A Partition-based Similarity Search as described in [1][2][3]. The package takes an input of the format <DocID: word1 word2..> as bag of words and output the pairs of document IDs that have a similarity value >= threshold. The framework used is the Java-based MapReduce framework provided by Apache Hadoop. 
+In release 1.0.1, we include new functionality of 
+a) Locality Sensitive Hashing (LSH); and
+b) incorporate incremental update.
 
 Package overview:
 -----------------
@@ -49,17 +52,29 @@ Quick start:
 
 5) To compile:
 
+cd build/lsh; ant build.xml
+
 cd build/preprocess; ant build.xml
+
 cd build/partition; ant build.xml
+
 cd build/hybrid; ant build.xml
 
-6) To run: 
+cd build/postprocess; ant build.xml
+
+6) To run PSS separately: 
 
 sh build/run.sh <numDocuments> <cluedata=1,tweets=2,emails=3,ymusic=4,gnews=5,,wiki=6,disease=7> <enable static partitioning? Y/N>
 
 For example, to calculate similarity scores for 500 Twitter records with static partitioning enabled, the command is 
 
 sh run.sh 500 2 Y 
+
+7) To run PSS with Locality Sensitive Hashing:
+
+cd build/lsh; sh runt.sh <numDocuments>
+
+This will run LSH-incorporated PSS for <numDocuments> Tweets. The number of permutations $nPerm$ and number of bits per signature $nBits$ are configurable in build/lsh/runt.sh file.
 
 
 References:
