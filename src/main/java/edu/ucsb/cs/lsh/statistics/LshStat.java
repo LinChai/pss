@@ -14,8 +14,6 @@
  * specific language governing permissions and limitations under
  * the License.
  * 
- * Author: maha alabduljalil <maha (at) cs.ucsb.edu>
- * @Since Sep 3, 2012
  */
 
 package edu.ucsb.cs.lsh.statistics;
@@ -55,9 +53,7 @@ import edu.ucsb.cs.types.FeatureWeightArrayWritable;
  * fp: wrong present pairs.<br>
  * 
  * 2) Convert text input to binary DocDocWritable,FloatWritable.
- * 
- * 
- * @author Maha <br>
+ *  
  * */
 public class LshStat {
 

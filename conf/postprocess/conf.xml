@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+<property> 
+    <name>postprocess.num.mapper</name>
+    <value>8</value> 
+    <description>Number of mappers</description>
+  </property>
+  
+
+</configuration>

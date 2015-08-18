@@ -13,9 +13,6 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under
  * the License.
- * 
- * Author: maha alabduljalil <maha (at) cs.ucsb.edu>
- * @Since Sep 5, 2012
  */
 
 package edu.ucsb.cs.lsh.types;
@@ -32,7 +29,6 @@ import org.apache.hadoop.io.WritableComparable;
 import edu.umd.cloud9.io.map.HashMapWritable;
 
 /**
- * @author Maha
  * 
  */
 public class CounterWritable implements WritableComparable {

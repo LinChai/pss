@@ -14,8 +14,6 @@
  * specific language governing permissions and limitations under
  * the License.
  * 
- * Author: maha alabduljalil <maha (at) cs.ucsb.edu>
- * @Since Dec 27, 2012
  */
 
 package edu.ucsb.cs.lsh.projection;
@@ -48,7 +46,6 @@ import edu.ucsb.cs.utilities.Properties;
 import edu.umd.cloud9.io.array.ArrayListOfFloatsWritable;
 
 /**
- * @author Maha
  * 
  *         Copied from Ivory. Generates random projections for Cosine similarity
  *         and store it in "projections" in HDFS. This class has a data
@@ -95,10 +92,11 @@ public class ProjectionsGenerator {
 		FileOutputFormat.setOutputPath(job, outputPath);
 		FileOutputFormat.setCompressOutput(job, false);
 
+		/*
 		job.set("mapred.child.java.opts", "-Xmx2048m");
 		job.setInt("mapred.map.max.attempts", 10);
 		job.setInt("mapred.reduce.max.attempts", 10);
-
+		*/
 		job.setNumMapTasks(1);
 		job.setNumReduceTasks(nReducers);
 
@@ -110,7 +108,9 @@ public class ProjectionsGenerator {
 		job.setOutputKeyClass(IntWritable.class);
 		job.setOutputValueClass(RandomVector.class);
 
-		JobSubmitter.run(job,"LSH",job.getFloat(Config.THRESHOLD_PROPERTY, Config.THRESHOLD_VALUE));
+		//JobSubmitter.run(job,"LSH",job.getFloat(Config.THRESHOLD_PROPERTY, Config.THRESHOLD_VALUE));
+		JobSubmitter.run(job,"LSH",-1);
+	
 	}
 
 	public static int readCollectionFeatureCount(FileSystem hdfs, JobConf job) throws IOException {

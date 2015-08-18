@@ -14,8 +14,6 @@
  * specific language governing permissions and limitations under
  * the License.
  * 
- * Author: maha alabduljalil <maha (at) cs.ucsb.edu>
- * @Since Sep 3, 2012
  */
 
 package edu.ucsb.cs.lsh.statistics;
@@ -41,8 +39,7 @@ import edu.ucsb.cs.types.DocDocWritable;
  * tp:<br>
  * fp:<br>
  * 
- * @author Maha <br>
- * */
+ */
 public class FourValues {
 
 	private static HashSet<DocDocWritable> ValidationData = new HashSet<DocDocWritable>();

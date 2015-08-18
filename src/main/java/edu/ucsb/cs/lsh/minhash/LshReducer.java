@@ -13,9 +13,6 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under
  * the License.
- * 
- * Author: maha alabduljalil <maha (at) cs.ucsb.edu>
- * @Since Sep 5, 2012
  */
 
 package edu.ucsb.cs.lsh.minhash;
@@ -34,9 +31,6 @@ import org.apache.hadoop.mapred.Reporter;
 import edu.ucsb.cs.lsh.types.IntArrayWritable;
 
 /**
- * Hi this is reducer
- * 
- * @author Maha
  * 
  */
 public class LshReducer extends MapReduceBase implements
@@ -44,8 +38,9 @@ public class LshReducer extends MapReduceBase implements
 
 	private IntWritable key = new IntWritable();
 	private Text value = new Text();
+	
+	/* // not sure the purpose of this implementation
 	private int count = 0;
-
 	public void reduce(IntArrayWritable sig, Iterator<LongWritable> docids,
 			OutputCollector<IntWritable, Text> output, Reporter report) throws IOException {
 		count++;
@@ -55,4 +50,24 @@ public class LshReducer extends MapReduceBase implements
 			output.collect(key, value);
 		}
 	}
+	*/
+
+	public void reduce(IntArrayWritable sig, Iterator<LongWritable> docids,
+			OutputCollector<IntWritable, Text> output, Reporter report) throws IOException {
+		int count = 0;
+		String text = "";
+
+		while (docids.hasNext()) {
+			count++;
+			text += docids.next().get() + " ";	// could be more efficient
+		}
+		if (count > 1) {
+			
+			key.set(count);
+			value.set(text);
+			output.collect(key, value);
+		}
+	}
+
+
 }

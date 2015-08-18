@@ -14,8 +14,6 @@
  * specific language governing permissions and limitations under
  * the License.
  * 
- * Author: maha alabduljalil <maha (at) cs.ucsb.edu>
- * @Since Feb 28, 2013
  */
 
 package edu.ucsb.cs.lsh.projection;
@@ -29,7 +27,7 @@ import org.apache.hadoop.io.WritableComparable;
 import edu.ucsb.cs.lsh.types.BitSignature;
 
 /**
- * @author Maha. Copied from Ferhan Ture. UMD ivory package.
+ * Copied from Ferhan Ture. UMD ivory package.
  */
 public class PairOfIntSignature implements WritableComparable<PairOfIntSignature> {
 	int permNo;

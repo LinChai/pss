@@ -20,7 +20,6 @@ import edu.ucsb.cs.lsh.types.CounterWritable;
  * documents and k is the number of concatenated hash values that forms a
  * signature.
  * 
- * @author Maha
  */
 public class LshTable implements Writable {
 

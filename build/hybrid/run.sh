@@ -45,5 +45,3 @@ fi
 ############################################################
 cd ../hybrid
 $run_hadoop jar $hybridjar -conf $xmlconf 
-
-
