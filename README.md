@@ -7,9 +7,7 @@ Project overview:
 -----------------
 
 A Partition-based Similarity Search as described in [1][2][3]. The package takes an input of the format <DocID: word1 word2..> as bag of words and output the pairs of document IDs that have a similarity value >= threshold. The framework used is the Java-based MapReduce framework provided by Apache Hadoop. 
-In release 1.0.1, we include new functionality of 
-a) Locality Sensitive Hashing (LSH); and
-b) incorporate incremental update.
+The code also incorporates a feature to support Locality Sensitive Hashing (LSH) and incremental computing.
 
 Package overview:
 -----------------
@@ -70,18 +68,24 @@ For example, to calculate similarity scores for 500 Twitter records with static 
 
 sh run.sh 500 2 Y 
 
-7) To run PSS with Locality Sensitive Hashing:
+7) To run PSS with LSH:
 
 cd build/lsh; sh runt.sh <numDocuments>
 
 This will run LSH-incorporated PSS for <numDocuments> Tweets. The number of permutations $nPerm$ and number of bits per signature $nBits$ are configurable in build/lsh/runt.sh file.
 
+8) To run PSS with incremental computing: 
+
+sh build/runinc.sh <existingDataFolder> <incrementalUpdateFolder>
+
+This will run PSS between incremental update and existing dataset with minimal additional computation. 
+
 
 References:
 -----------
 
-[1]  "Optimizing Parallel Algorithms for All Pairs Similarity Search".M.Alabduljalil,X.Tang,T.Yang.WSDM'13.
+[1]  "Optimizing Parallel Algorithms for All Pairs Similarity Search". M.Alabduljalil, X.Tang, T.Yang. WSDM'13.
 
-[2]  "Cache-Conscious Performance Optimization for Similarity Search".M.Alabduljalil,X.Tang,T.Yang.SIGIR'13.
+[2]  "Cache-Conscious Performance Optimization for Similarity Search". M.Alabduljalil, X.Tang, T.Yang. SIGIR'13.
 
-[3]  "Load Balancing for Partition-based Similarity Search". X.Tang,M.Alabduljalil,T.Yang.SIGIR'14.
+[3]  "Load Balancing for Partition-based Similarity Search". X.Tang, M.Alabduljalil, T.Yang. SIGIR'14.
