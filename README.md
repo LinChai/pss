@@ -88,4 +88,4 @@ References:
 
 [2]  "Cache-Conscious Performance Optimization for Similarity Search". M.Alabduljalil, X.Tang, T.Yang. SIGIR'13.
 
-[3]  "Load Balancing for Partition-based Similarity Search". X.Tang, M.Alabduljalil, T.Yang. SIGIR'14.
+[3]  "Load Balancing for Partition-based Similarity Search". X.Tang, M.Alabduljalil, X.Jin, T.Yang. SIGIR'14.
