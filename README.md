@@ -50,15 +50,16 @@ Quick start:
 
 5) To compile:
 
-cd build/lsh; ant build.xml
 
-cd build/preprocess; ant build.xml
+cd build/preprocess; ant
 
-cd build/partition; ant build.xml
+cd build/partition; ant
 
-cd build/hybrid; ant build.xml
+cd build/hybrid; ant
 
-cd build/postprocess; ant build.xml
+cd build/postprocess; ant
+
+cd build/lsh; ant
 
 6) To run PSS separately: 
 

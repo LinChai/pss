@@ -17,7 +17,9 @@ cd ..
 ############################################################
 # Run Post Processing for Score Band
 ############################################################
+run_hadoop=${HADOOP_HOME}/bin/hadoop
 $run_hadoop dfs -rmr exactss
 $run_hadoop dfs -mv SimilarityScores exactss
-cd ../postprocess
+pwd
+cd ./postprocess
 ./run.sh scoreband      #scoreband processes for result from exact similarity search
